@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="15dp">
+
+        <ImageView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:background="@drawable/rect_skeleton_gray"
+            android:paddingLeft="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TITLE" />
+
+        <ImageView
+            android:id="@+id/desc01"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rect_skeleton_gray"
+            android:paddingLeft="8dp"
+            app:layout_constraintBottom_toTopOf="@id/desc02"
+            app:layout_constraintEnd_toStartOf="@id/thumbnail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/thumbnail"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="TITLE" />
+
+        <ImageView
+            android:id="@+id/desc02"
+            android:layout_width="100dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/rect_skeleton_gray"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/desc01"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rect_skeleton_gray"
+            app:layout_constraintDimensionRatio="H, 5:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.278" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
