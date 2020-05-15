@@ -8,6 +8,12 @@ import com.tr1984.mergeadaptersample.paging.PeopleDataSourceFactory
 
 class MainViewModel : ViewModel() {
 
+    private val _bannerItems = MutableLiveData(listOf<String>())
+    val bannerItem: LiveData<List<String>>
+        get() {
+            return _bannerItems
+        }
+
     private val _articleItems = MutableLiveData(listOf<String>())
     val articleItem: LiveData<List<String>>
         get() {
@@ -25,6 +31,12 @@ class MainViewModel : ViewModel() {
     }
 
     fun fetch() {
+        _bannerItems.value = arrayListOf<String>().apply {
+            for (i in 0 until 10) {
+                add("Banner:$i")
+            }
+        }
+
         _articleItems.value = arrayListOf<String>().apply {
             for (i in 0 until 2) {
                 add("Article:$i")

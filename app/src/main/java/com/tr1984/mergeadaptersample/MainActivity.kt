@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.MergeAdapter
 import com.tr1984.mergeadaptersample.adapter.*
+import com.tr1984.mergeadaptersample.adapter.horizontal.HorizontalContainerAdapter
 import com.tr1984.mergeadaptersample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-                .create(MainViewModel::class.java)
+            .create(MainViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             lifecycleOwner = this@MainActivity
             activity = this@MainActivity
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun generateAdapter(): MergeAdapter {
+        val bannerHeader = HeaderAdapter(this, "Banner Search Results")
+        val bannerAdapter = HorizontalContainerAdapter(this, BannerAdapter(this, viewModel))
+
         val articleHeader = HeaderAdapter(this, "Article Search Results")
         val articleAdapter = ArticleAdapter(this, viewModel)
         val articleFooter = FooterAdapter(this, "Add Article") {
@@ -45,9 +49,11 @@ class MainActivity : AppCompatActivity() {
         val peopleAdapter = PeopleAdapter(this, viewModel)
 
         return MergeAdapter(
-                MergeAdapter.Config.Builder().setIsolateViewTypes(false).build(),
-                articleHeader, articleAdapter, articleFooter,
-                feedHeader, feedAdapter, feedFooter,
-                peopleHeader, peopleAdapter)
+            MergeAdapter.Config.Builder().setIsolateViewTypes(false).build(),
+            bannerHeader, bannerAdapter,
+            articleHeader, articleAdapter, articleFooter,
+            feedHeader, feedAdapter, feedFooter,
+            peopleHeader, peopleAdapter
+        )
     }
 }
