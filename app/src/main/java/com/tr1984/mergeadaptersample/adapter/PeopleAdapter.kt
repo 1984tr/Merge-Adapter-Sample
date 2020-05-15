@@ -32,6 +32,10 @@ class PeopleAdapter(lifecycleOwner: LifecycleOwner, viewModel: MainViewModel) : 
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.item_people
+    }
+
     class Holder(val binding: ItemPeopleBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {

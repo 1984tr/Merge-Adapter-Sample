@@ -10,20 +10,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tr1984.mergeadaptersample.R
 import com.tr1984.mergeadaptersample.databinding.ItemFooterBinding
 
-class FooterAdapter(val lifecycleOwner: LifecycleOwner, private val label: String, private val actionAll: () -> Unit) :
+class FooterAdapter(
+    val lifecycleOwner: LifecycleOwner,
+    private val label: String,
+    private val actionAll: () -> Unit
+) :
     ListAdapter<String, FooterAdapter.Holder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         return Holder(
-            DataBindingUtil.inflate(inflater, R.layout.item_footer, parent, false),
-            actionAll
+            DataBindingUtil.inflate(inflater, R.layout.item_footer, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.binding.lifecycleOwner = lifecycleOwner
         holder.binding.lblAction.text = label
+        holder.binding.container.setOnClickListener {
+            actionAll.invoke()
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -32,14 +38,7 @@ class FooterAdapter(val lifecycleOwner: LifecycleOwner, private val label: Strin
 
     override fun getItemCount() = 1
 
-    class Holder(val binding: ItemFooterBinding, actionAll: () -> Unit) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.container.setOnClickListener {
-                actionAll.invoke()
-            }
-        }
-    }
+    class Holder(val binding: ItemFooterBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
         val diffCallback by lazy {

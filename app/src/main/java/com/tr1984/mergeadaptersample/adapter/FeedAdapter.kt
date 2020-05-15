@@ -30,6 +30,10 @@ class FeedAdapter(private val lifecycleOwner: LifecycleOwner, viewModel: MainVie
         holder.binding.lifecycleOwner = lifecycleOwner
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.item_feed
+    }
+
     class Holder(val binding: ItemFeedBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {

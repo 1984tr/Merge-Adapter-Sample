@@ -30,6 +30,10 @@ class ArticleAdapter(private val lifecycleOwner: LifecycleOwner, viewModel: Main
         holder.binding.lifecycleOwner = lifecycleOwner
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.item_article
+    }
+
     class Holder(val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {

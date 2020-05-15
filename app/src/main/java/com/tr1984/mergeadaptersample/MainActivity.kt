@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val peopleAdapter = PeopleAdapter(this, viewModel)
 
         return MergeAdapter(
+                MergeAdapter.Config.Builder().setIsolateViewTypes(false).build(),
                 articleHeader, articleAdapter, articleFooter,
                 feedHeader, feedAdapter, feedFooter,
                 peopleHeader, peopleAdapter)

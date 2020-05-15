@@ -23,6 +23,10 @@ class HeaderAdapter(private val lifecycleOwner: LifecycleOwner, private val labe
         holder.binding.title.text = label
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.item_header
+    }
+
     override fun getItemCount() = 1
 
     class Holder(val binding: ItemHeaderBinding) : RecyclerView.ViewHolder(binding.root)
