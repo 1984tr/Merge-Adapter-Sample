@@ -12,8 +12,10 @@ import com.tr1984.mergeadaptersample.MainViewModel
 import com.tr1984.mergeadaptersample.R
 import com.tr1984.mergeadaptersample.databinding.ItemPeopleBinding
 import com.tr1984.mergeadaptersample.model.People
+import com.tr1984.mergeadaptersample.viewmodel.PeopleViewModel
 
-class PeopleAdapter(lifecycleOwner: LifecycleOwner, viewModel: MainViewModel) : PagedListAdapter<People, PeopleAdapter.Holder>(diffCallback) {
+class PeopleAdapter(val lifecycleOwner: LifecycleOwner, viewModel: MainViewModel) :
+    PagedListAdapter<People, PeopleAdapter.Holder>(diffCallback) {
 
     init {
         viewModel.peopleItem.observe(lifecycleOwner, Observer {
@@ -27,8 +29,9 @@ class PeopleAdapter(lifecycleOwner: LifecycleOwner, viewModel: MainViewModel) : 
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder.binding.lifecycleOwner = lifecycleOwner
         getItem(position)?.run {
-            holder.binding.name.text = name
+            holder.binding.viewModel = PeopleViewModel(this)
         }
     }
 
