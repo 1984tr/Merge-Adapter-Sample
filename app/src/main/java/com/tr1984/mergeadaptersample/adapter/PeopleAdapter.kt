@@ -9,12 +9,12 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tr1984.mergeadaptersample.MainViewModel
+import com.tr1984.mergeadaptersample.PeopleViewModel
 import com.tr1984.mergeadaptersample.R
 import com.tr1984.mergeadaptersample.databinding.ItemPeopleBinding
 import com.tr1984.mergeadaptersample.model.People
-import com.tr1984.mergeadaptersample.viewmodel.PeopleViewModel
 
-class PeopleAdapter(val lifecycleOwner: LifecycleOwner, viewModel: MainViewModel) :
+class PeopleAdapter(private val lifecycleOwner: LifecycleOwner, val viewModel: PeopleViewModel) :
     PagedListAdapter<People, PeopleAdapter.Holder>(diffCallback) {
 
     init {
@@ -31,7 +31,8 @@ class PeopleAdapter(val lifecycleOwner: LifecycleOwner, viewModel: MainViewModel
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.binding.lifecycleOwner = lifecycleOwner
         getItem(position)?.run {
-            holder.binding.viewModel = PeopleViewModel(this)
+            holder.binding.viewModel = viewModel
+            holder.binding.people = this
         }
     }
 
@@ -46,11 +47,11 @@ class PeopleAdapter(val lifecycleOwner: LifecycleOwner, viewModel: MainViewModel
         private val diffCallback = object : DiffUtil.ItemCallback<People>() {
 
             override fun areItemsTheSame(oldItem: People, newItem: People): Boolean {
-                return oldItem.name == newItem.name
+                return oldItem.liveName.value == newItem.liveName.value
             }
 
             override fun areContentsTheSame(oldItem: People, newItem: People): Boolean {
-                return oldItem == newItem
+                return oldItem.equals(newItem)
             }
         }
     }

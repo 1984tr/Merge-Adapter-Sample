@@ -10,43 +10,46 @@ import com.tr1984.mergeadaptersample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var peopleViewModel: PeopleViewModel
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        mainViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
             .create(MainViewModel::class.java)
+        peopleViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+            .create(PeopleViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             lifecycleOwner = this@MainActivity
             activity = this@MainActivity
-            viewModel = this@MainActivity.viewModel
+            viewModel = this@MainActivity.mainViewModel
 
             recyclerView.adapter = generateAdapter()
         }
         setContentView(binding.root)
 
-        viewModel.fetch()
+        mainViewModel.fetch()
     }
 
     private fun generateAdapter(): MergeAdapter {
         val bannerHeader = HeaderAdapter(this, "Banner Search Results")
-        val bannerAdapter = HorizontalContainerAdapter(this, BannerAdapter(this, viewModel))
+        val bannerAdapter = HorizontalContainerAdapter(this, BannerAdapter(this, mainViewModel))
 
         val articleHeader = HeaderAdapter(this, "Article Search Results")
-        val articleAdapter = ArticleAdapter(this, viewModel)
+        val articleAdapter = ArticleAdapter(this, mainViewModel)
         val articleFooter = FooterAdapter(this, "Add Article") {
-            viewModel.fetchArticle()
+            mainViewModel.fetchArticle()
         }
 
         val feedHeader = HeaderAdapter(this, "Feed Search Results")
-        val feedAdapter = FeedAdapter(this, viewModel)
+        val feedAdapter = FeedAdapter(this, mainViewModel)
         val feedFooter = FooterAdapter(this, "Delete Feed") {
-            viewModel.fetchFeed()
+            mainViewModel.fetchFeed()
         }
 
         val peopleHeader = HeaderAdapter(this, "People Search Results")
-        val peopleAdapter = PeopleAdapter(this, viewModel)
+        val peopleAdapter = PeopleAdapter(this, peopleViewModel)
 
         return MergeAdapter(
             MergeAdapter.Config.Builder().setIsolateViewTypes(false).build(),

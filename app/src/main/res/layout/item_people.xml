@@ -7,7 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.tr1984.mergeadaptersample.viewmodel.PeopleViewModel" />
+            type="com.tr1984.mergeadaptersample.PeopleViewModel" />
+
+        <variable
+            name="people"
+            type="com.tr1984.mergeadaptersample.model.People" />
 
     </data>
 
@@ -15,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:onClick="@{() -> viewModel.increaseCount()}"
+        android:onClick="@{() -> viewModel.increaseCount(people)}"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingEnd="20dp"
@@ -38,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@{viewModel.name}"
+            android:text="@{people.liveName}"
             app:layout_constraintBottom_toTopOf="@id/desc01"
             app:layout_constraintStart_toEndOf="@id/thumbnail"
             app:layout_constraintTop_toTopOf="@id/thumbnail"
@@ -50,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:text="@{viewModel.status}"
+            android:text="@{people.liveStatus}"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toTopOf="@id/desc02"
             app:layout_constraintEnd_toEndOf="parent"
